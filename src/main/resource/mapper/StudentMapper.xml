@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper">
+	
+	<select id="getStudentById" parameterType="int" resultMap="getStudentByIdMap">
+		select s.*, c.id as cid, c.name as cname from t_student s, t_class c where s.classId = c.id and s.id = #{id}
+	</select>
+	
+	<resultMap type="com.ymd.learn.model.Student" id="getStudentByIdMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<association property="classes" javaType="com.ymd.learn.model.Classes">
+			<id column="cid" property="id"/>
+			<result column="cname" property="name"/>
+		</association>
+	</resultMap>
+
+</mapper>
